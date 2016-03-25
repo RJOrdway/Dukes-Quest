@@ -1,0 +1,201 @@
+## TODO improve dialogue, enchance DEAD function and create a similar WIN function. Game is playable!!!!
+
+from sys import exit
+
+torch = False
+sword = False
+
+## THE SPHINX SCENE the_sphinx gives the player 3 chances to answer her riddle using nested ifs
+## currently there is a placeholder win scenario, plan on replacing with a win function (def win_game)
+
+def the_sphinx():
+	print "A tremendous creature with the body of a cat, the wings of a great eagle"
+	print "and the face of a beautiful woman towers over you. Beneath its large paws"
+	print "you see the mangled bodies of its previous victims."
+	raw_input()
+	print "She says 'All who come by my way must answer my riddle. I will forgive two"
+	print "incorrect answers, the third brings your death. Running away is also fatal."
+	print "Only the correct answer will allow for your safe passage'"
+	raw_input()
+	print """\tMy life begins as an egg submerged in water.
+	Although my mother has 4 legs I have none.
+	When my tail falls off, my name changes.
+	What am I?"""
+	
+	answer0 = raw_input("> ")
+	
+	if answer0 == "tadpole" or answer0 == "a tadpole" or answer0 == "A tadpole" or answer0 == "A Tadpole":
+		print "The Sphinx pauses and looks carefully at you for the first time"
+		print "You Win!"
+		exit(0)
+	elif answer0 == "run" or answer0 == "run away":
+	 	dead("The Sphinx lets you run for a few minutes before quickly catching and consuming you.")
+	else:
+		print "The claws of the front right paw extend forward..."
+		answer1 = raw_input("> ")
+	
+		if answer1 == "tadpole" or answer1 == "a tadpole" or answer1 == "A tadpole" or answer1 == "A Tadpole":
+			print "The Sphinx pauses and looks carefully at you for the first time"
+			print "You Win!"
+			exit(0)
+		elif answer1 == "run" or answer1 == "run away":
+			dead("The Sphinx lets you run for a few minutes before quickly catching and consuming you.")
+		else:
+			print "The claws of the front left paw also extend. You see dried blood on them..."
+			answer2 = raw_input("> ")
+			
+			if answer2 == "tadpole" or answer2 == "a tadpole" or answer2 == "A tadpole" or answer2 == "A Tadpole":
+				print "The Sphinx pauses and looks carefully at you for the first time"
+				print "You Win!"
+				exit(0)
+			elif answer2 == "run" or answer2 == "run away":
+				dead("The Sphinx lets you run for a few minutes before quickly catching and consuming you.")
+			else:
+				dead("The Sphinx crushes your body with a swift movement of its paw.")
+				
+##THE RING is a short scene
+
+def the_ring():
+	print "As you exit the tunnel you notice that you cast no shadow. A second glance at your"
+	print "person and you realize that you are invisible. This proves to be of great benefit"
+	print "as you see a tremendous creature on the side of the path. It appears that it can"
+	print "smell you, but definitely can't see you. You decide to take the long way around the"
+	print "area it is sitting in to avoid its deadly paws."
+	raw_input()
+	print "You breathe a heavy sigh of relief as the Sphinx fades into the distance."
+	print "You Win!"
+	exit(0)
+
+##THE TUNNEL
+
+def the_tunnel():
+	global torch
+	global sword
+	print "You seal the stone entryway to the tunnel behind you as darkness encloses you."
+	if torch == True:
+		print "You light the torch, grateful to the artificial source as you step around the"
+		print "first of many traps."
+	else:
+		print "Family history tells you that the tunnels are filled with hazards, without being"
+		print "able to see you must be careful..."
+	escape = raw_input("> ")
+	if torch == True and escape == "escape" or escape == "go forward" or escape == "exit":
+		print "Your torch lights your path and you exit the tunnel without much trouble."
+		print "The torch burns out as you exit into the hills, you head down the path that"
+		print "you know will take you to your cousin, the King."
+		raw_input()
+		the_sphinx()
+	elif torch == True and escape == "search tunnel" or escape == "search" or escape == "look around" or escape == "look":
+		print "While heading out of the tunnel you inspect your surroundings carefully."
+		print "You see a shiny object in a dusty corner, upon picking it up you realize"
+		print "that it is an ancient magic ring spoken of in your family's legends."
+		print "You put the ring on as you exit the cave. The torch burns out as you exit"
+		print "the tunnel and head down the path toward your cousin, the King."
+		the_ring()
+	elif torch == False and escape == "crawl":
+		print "Unable to see your hand in front of your face, you drop to the floor in"
+		print "an attempt to avoid the traps that your knowledge of your family's fortress"
+		print "tells you are spread throughout the tunnels. It is slow going, sometimes"
+		print "leading through to dead ends. You persevere and eventually see the light"
+		print "at the end of the tunnel. You exit and dust yourself off as you head down"
+		print "the path you know will take you to your cousin, the King."
+		raw_input()
+		the_sphinx()
+	else:
+		print "You stumble down the tunnel without being able to see. For a while it seems"
+		print "you might be able to make your way out of the tunnel. Suddenly your next step"
+		print "takes you tumbling into a deep pit."
+		dead("There is no escape from this place. You waste away slowly.")
+	
+##THE MOAT + shore scene
+
+def the_moat():
+	global torch
+	global sword
+	print "There is a great splash as suddenly you are surrounded by water."
+	if torch == True and sword == True:
+		print "You are weighed down by carrying both the sword and the torch. You attempt to get rid"
+		print "of the torch, but in the process of doing so you take too long and are dragged under"
+		print "by the ancient beasts that guard your castle."
+		dead("You are consumed, nothing remains except the heirloom sword which sits at the bottom of the moat now.")
+	elif torch == False and sword == True:
+		print "You feel the moat creatures grabbing at your legs but you are able to repel them as you"
+		print "swim your way out of the moat by stabbing at them with the sword. You pull yourself out"
+		print "of the water and are confronted with a decision. The lone guard appears inexperienced,"
+		print "but with his weapon sharp he could still prove deadly. You are a well trained swordsman"
+		print "and for years your father's best men trained you in the ways of combat."
+		while True:
+			print "Do you take and offensive or defensive stance when fighting this guard?"
+			fight = raw_input("> ")
+			if fight == "defense" or fight == "defensive":
+				print "You are easily able to keep the lone guard at bay, waiting for him to make a fatal mistake."
+				print "However it ends up that the guard is also biding his time, a large group of reinforcements"
+				print "surrounds you while you are focused on the battle at hand."
+				dead("You are captured by the guards and summarily executed by the wizard himself.")
+			elif fight == "offensive" or fight == "offense":
+				print "You take a few risks by bringing the attack to the guard. At several points he almost manages"
+				print "to take advantage of openings created by your aggressive stance. He is, however, no match for"
+				print "you in the end. Once he is dispatched you quickly head down the road you know will take you"
+				print "to your cousin, the King."
+				the_sphinx()
+			else:
+				print "This isn't the time to experiment with new forms of combat..."
+	else:
+		print "With nothing weighing you down you are able to quickly swim to shore. You are quickly greeted"
+		print "the guard. Although he looks inexperienced he is armed and you are unable to prevent him from"
+		print "apprehending you. He waits for reinforcements that quickly arrive."
+		dead("Your captors escort you to the Dark Wizard, who executes you without remorse.")
+
+##START GAME
+
+def start_game():
+
+	print "Your father has recently passed and you are now the Duke. Unfortunately the dark"
+	print "Wizard has sensed this as a moment of weakness and his forces have surrounded your"
+	print "ancestral castle. Your cousin, the King, would be enraged to learn of this. You must"
+	print "find a way to escape and inform him so that the royal troops may save your Dukedom."
+	raw_input()
+	global torch
+	global sword
+	while True:
+		print "There is a secret tunnel that you have known about since you were a child. You could"
+		print "also jump from the window into the moat below - there only appears to be a single"
+		print "guard from the wizards forces. What do you do?"
+		action = raw_input("> ")
+		if torch == False and sword == False and action == "look around" or action == "look" or action == "search":
+			print "There is a sword, a family heirloom that has seen many battles, and a torch."
+			print "Do you take either, or both?"
+			take = raw_input("> ")
+			if take == "both" or take == "sword and torch" or take == "take both" or take == "torch and sword" or take == "take sword and torch" or take == "take torch and sword":
+				print "You grab both the sword and the torch, hopefully these will both help"
+				torch = True
+				sword = True
+			elif take == "take sword" or take == "sword" or take == "grab sword": 
+				print "You grab the sword that both your father and grandfather had used, hopefully it will help."
+				sword = True
+			elif take == "take torch" or take == "torch" or take == "grab torch":
+				print "You take the torch, it should help if you are going through the tunnels."
+				torch = True
+			else:
+				print "%s isn't something available to grab in the room..." % take
+		elif action == "look around" or action == "look" or action == "search":
+			print "You have already spent enough time looking around for things, you need to take action!"
+		elif action == "tunnel" or action == "tunnels" or action == "enter tunnel" or action == "enter tunnels":
+			print "You barricade the entrance to your room as best you can and open the hidden cover of the tunnel."
+			the_tunnel()
+		elif action == "window" or action == "jump from window" or action == "moat" or action == "jump":
+			print "You jump out the window and hope for the best."
+			the_moat()
+		else:
+			print "I don't think %s is going to help much." % action
+	
+## DEAD ENDING would like to improve dead with why, newline, then a multi-line explanation of what happens,
+## had errors so this is just a placeholder
+
+def dead(why):
+	print why, "The evil wizard wins."
+	exit(0)
+
+## WIN ENDING - I would like to convert the two print wins! into a small WIN function similar to the dead function.	
+	
+start_game()
